@@ -36,21 +36,6 @@
 
 }
 
-.alert-state-ok {
-    color: green;
-    fill: green;
-}
-
-.alert-state-warning {
-    color: orange;
-    fill: orange;
-}
-
-.alert-state-alerting {
-    color: red;
-    fill: red;
-}
-
 .tag-container {
     white-space: pre-line;
     line-height: 0;
