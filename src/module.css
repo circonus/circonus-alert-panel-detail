@@ -1,0 +1,71 @@
+.label-tag {
+    margin-right: 4px;
+    margin-top: 8px;
+    white-space: nowrap;
+    border-radius: 3px;
+    text-shadow: none;
+    font-size: 12px;
+    padding: 0 6px;
+    line-height: 20px;
+    height: 20px;
+}
+
+.label{
+    display: inline-block;
+    font-weight: 500;
+    color: #fff;
+    vertical-align: baseline;
+    background-color: #5550
+}
+
+.darklabel{
+    display: inline-block;
+    font-weight: 500;
+    color: #aaa;
+    vertical-align: baseline;
+    background-color: #5550
+}
+
+.rule {
+    display: block;
+    font-weight: 500;
+    color: #fff;
+    vertical-align: baseline;
+    background-color: #5550;
+    line-height: 24px;
+
+}
+
+.tag-container {
+    white-space: pre-line;
+    line-height: 0;
+}
+
+.state-alerting {
+    color: red;
+}
+
+.state-ok {
+    color: green;
+}
+
+.icon {
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    vertical-align: bottom;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+a {
+    display: inline-block;
+    font-weight: 500;
+    color: #fff;
+    vertical-align: baseline;
+    white-space: nowrap;
+}
