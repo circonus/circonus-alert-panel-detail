@@ -3,6 +3,7 @@ import { PanelProps } from '@grafana/data';
 import { CirconusAlertPanelDetailOptions } from 'types';
 import { css, cx } from 'emotion';
 import { stylesFactory /* , useTheme */ } from '@grafana/ui';
+import { getLocationSrv, getTemplateSrv } from '@grafana/runtime';
 import './module.css';
 import { DataFrame } from '@grafana/data';
 import * as Mustache from 'mustache';
@@ -326,6 +327,34 @@ export const CirconusAlertPanelDetail: React.FC<Props> = ({ options, data, width
         display: 'inline-block',
       };
 
+      let rangeset = false;
+      const dashVars = getTemplateSrv().getVariables();
+      for (let i = 0; i < dashVars.length; i++) {
+        if (dashVars[i].name === 'initial_range_set') {
+          rangeset = getTemplateSrv().replace('{initial_range_set}') === 'true';
+        }
+      }
+      const query: any = {};
+      query['var-check_uuid'] = getField(dataframe, 'check_uuid');
+      query['var-cn'] = getField(dataframe, 'canonical_metric_name');
+      query['var-function'] = getField(dataframe, 'function');
+      query['var-threshold_1'] = getField(dataframe, 'threshold_1');
+      query['var-threshold_2'] = getField(dataframe, 'threshold_2');
+      query['var-threshold_3'] = getField(dataframe, 'threshold_3');
+      query['var-threshold_4'] = getField(dataframe, 'threshold_4');
+      query['var-threshold_5'] = getField(dataframe, 'threshold_5');
+      query['var-alert_id'] = getField(dataframe, 'alert_id');
+      if (rangeset === false) {
+        query['from'] = getField(dataframe, 'alert_window_start');
+        query['to'] = getField(dataframe, 'alert_window_end');
+        query['var-initial_range_set'] = 'true';
+      }
+      getLocationSrv().update({
+        partial: true,
+        query: query,
+        replace: true,
+      });
+
       return (
         <table>
           <tr>
@@ -421,25 +450,6 @@ export const CirconusAlertPanelDetail: React.FC<Props> = ({ options, data, width
           </tr>
         </table>
       );
-
-      /* const urlParams = new URLSearchParams(window.location.search);
-                           * const rangeset = urlParams.get('var-initial_range_set');
-
-                           * varmap['check_uuid'] = ctrl.data[0].rows[0].check_uuid;
-                           * varmap['cn'] = ctrl.data[0].rows[0].canonical_metric_name;
-                           * varmap['function'] = ctrl.data[0].rows[0].function;
-                           * varmap['threshold_1'] = ctrl.data[0].rows[0].threshold_1;
-                           * varmap['threshold_2'] = ctrl.data[0].rows[0].threshold_2;
-                           * varmap['threshold_3'] = ctrl.data[0].rows[0].threshold_3;
-                           * varmap['threshold_4'] = ctrl.data[0].rows[0].threshold_4;
-                           * varmap['threshold_5'] = ctrl.data[0].rows[0].threshold_5;
-                           * if (rangeset !== 'true') {
-                           *     varmap['from'] = ctrl.data[0].rows[0].alert_window_start;
-                           *     varmap['to'] = ctrl.data[0].rows[0].alert_window_end;
-                           *     varmap['initial_range_set'] = 'true';
-                           * }
-
-                           * ctrl.setVariables(varmap); */
     } else {
       return <p className="label">Alert not found</p>;
     }

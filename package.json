@@ -14,6 +14,7 @@
   "devDependencies": {
     "@grafana/data": "latest",
     "@grafana/toolkit": "latest",
+    "@grafana/runtime": "latest",
     "@grafana/ui": "latest",
     "emotion": "10.0.27",
     "@types/mustache": "latest",
