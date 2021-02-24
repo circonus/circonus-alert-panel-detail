@@ -328,7 +328,8 @@ export const CirconusAlertPanelDetail: React.FC<Props> = ({ options, data, width
       const header = {
         fontSize: '18px',
         display: 'inline-block',
-      };
+        whiteSpace: 'normal',
+      } as React.CSSProperties;
 
       let rangeset = false;
       const dashVars = getTemplateSrv().getVariables();
